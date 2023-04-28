@@ -66,4 +66,19 @@ It is possible to power device off 500mA capable USB port - however this is not 
 
 2. External VIN  - This connection bypass L1 and  D4 connecting directly to Driver and LDO VS pin. The recommended input voltage is 5V and maximum allowed is 6V - which is restricted by max VIN of ST1L05C LDO.
 
+#### First Time Setup
+Development Kit comes with no Firmware.
+Since ESP32-S3 comes with USB-OTG/USB-Serial integrated into MCU the assumption is that this would be a preferred method of code upload.
+If you are connecting your device to computer for the first time it is critical to put device into DFU mode.
+**
+In order to do that you need to:**
+1. Connect Development Board to USB port - *On windows machines you may notice that USB detection sound goes on and off in loop - Please ignore that for now*
+2. Press and hold **BOOT** switch
+3. While holding **BOOT** press and hold **RESET** switch for about **2 seconds**
+4. Release **RESET**
+5. Release **BOOT**
+6. You are now in **DFU mode** and you can use Arduino IDE or PlatformIO to upload your first sketch.
+
+Alternatively you may use UART pins which are available on GPIO Matrix to upload your code the legacy way.
+In order to do that you need external TTL Converter.
 
