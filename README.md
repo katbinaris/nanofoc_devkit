@@ -70,8 +70,8 @@ It is possible to power device off 500mA capable USB port - however this is not 
 Development Kit comes with no Firmware.
 Since ESP32-S3 comes with USB-OTG/USB-Serial integrated into MCU the assumption is that this would be a preferred method of code upload.
 If you are connecting your device to computer for the first time it is critical to put device into DFU mode.
-**
-In order to do that you need to:**
+
+**In order to do that you need to:**
 1. Connect Development Board to USB port - *On windows machines you may notice that USB detection sound goes on and off in loop - Please ignore that for now*
 2. Press and hold **BOOT** switch
 3. While holding **BOOT** press and hold **RESET** switch for about **2 seconds**
