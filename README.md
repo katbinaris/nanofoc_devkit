@@ -1,5 +1,4 @@
-![](https://github.com/katbinaris/nanofoc_devkit/blob/main/Images/IMG_20230418_120543-01.jpeg?raw=true)
-![](https://github.com/katbinaris/nanofoc_devkit/blob/main/Images/IMG_20230418_120543-01.jpg?raw=true)
+![](/Images/NanoFOC_GH.jpg?raw=true)
 
 #### Product Description:
 Starting your first Field Oriented Control (FOC) project might be daunting, especially if you're new to the field.
@@ -54,6 +53,9 @@ The NanoFOC is little enough to attach on the back of most small BLDC gimbal mot
 | GPIO 47 | I/O | YES |
 | GPIO 48 | I/O | YES |
 
+#### Board Layout:
+
+![](/Images/PCB_LAYOUT.jpg)
 
 #### Power Options:
 Device is designed to run of 5V @ 1.5A Max.
