@@ -7,13 +7,15 @@
 #define PIN_VL 10
 #define PIN_WH 13
 #define PIN_WL 11
+
 #define MAQ_SS 4
+
 #define MOTOR_PP 7 // Pole Pairs
 
 
 // Call a MagneticSensoSPI driver in SimpleFOC libdep.
 // You will need to manually add definiton of the sensor to MagneticSensorSPI.h and MagneticSensorSPI.cpp
-// .pio/libdeps/SimpleFOC/src/drivers/sensors
+// .pio/libdeps/adafruit_feather_esp32s3/SimpleFOC/src/drivers/sensors
 // Correct version of the file for SimpleFOC 2.3 can be found in GitHub repository
 MagneticSensorSPI sensor = MagneticSensorSPI(MAQ430_SPI, MAQ_SS); 
 
@@ -41,7 +43,7 @@ void setup() {
   // Driver Voltage limit - A way to limit PWM duty cycle
   // For NanoFOC DevKit this value is between 2-5V
   // Do not exceed 5V as you might damage the driver
-  driver.voltage_limit = 5;
+  driver.voltage_limit = 3;
 
   // Driver PWM Frequency - Higher the value the smoother operation in theory.
   // If unsure leave commented, Values can range from 8000-50000 (Hz)
@@ -60,7 +62,8 @@ void setup() {
   // If you know your motor phase resistance (Easily to measure with Multimeter)
   // You can uncomment this section, and you will be operating in "Voltage - Estimated Current" mode.
   // It is much more natural to control haptics with Current rather than Voltage
-  // motor.phase_resistance = 7.3; // ex. 2.5 Ohms
+  // Very high risk of damaging Schottky diode and LDO
+  // motor.phase_resistance = 4.4; // ex. 2.5 Ohms
 
   // If you know your motor KV rating (V/RPM) you may instert it here. KV is proportional to target voltage.
   // Most of manufacturers provide KV rating for rated Voltage, It is advised to perform your own KV rating.
@@ -70,8 +73,10 @@ void setup() {
 
   // IMPORTANT
   // By introducing Phase Resistance and KV Rating you would need drastically lower your PID values
+  // If you decide to introuce Phase R and KV rating start from PID 0,0,0,250,5
+  // High probability that BEMF will damage diode and LDO if not used correctly
 
-  // Set motor voltage limit (it is safe to keep it between 2.5-5V)
+  // Set motor voltage limit (it is safe to keep it between 2.5-5V, depending on motor is recommended 3V)
   motor.voltage_limit = 3;   // [V]
   
   // Use monitoring with serial 
@@ -106,7 +111,7 @@ void setup() {
 // D = Derivative, responsible for introducing resistance - similar to viscose friction. Use this to counteract cogging torque or in combination with Proportional. (Keep values low between 0.010 = 0.048)
 // Output_Ramp = Adjust momentary voltage. the higher values are for better haptic response on bigger attractor distances, lower values smootihing the operation.
 // Limit = Velocity limit - Keep between 4-20
-PIDController P_haptic{.P=1,.I=0,.D=0.140,.output_ramp=8500,.limit=20};
+PIDController P_haptic{.P=1,.I=0,.D=0.148,.output_ramp=2500,.limit=7};
 
 
 
@@ -115,7 +120,7 @@ float attract_angle = 0;
 
 // Distance between attraction points - Indentation Amount
 // You want to edit this line if you want to increase/decrease amount of steps then correct PIDController above.
-float attractor_distance = 4*_PI/180.0; // eg. 5 == Dips every 5 degrees
+float attractor_distance = 1*_PI/180.0; // eg. 5 == Dips every 5 degrees
 
 float findAttractor(float current_angle){
   return round(current_angle/attractor_distance)*attractor_distance;
@@ -138,4 +143,8 @@ void loop() {
   // real-time commander calls
   // command.run();
 
+  // Add microdelay for "Clickiness"
+  // Use value between 100-400us. Especially for higher PID or Attractor angle use low values!
+  // Do not exceed 1000us
+  delayMicroseconds(375);
 }
