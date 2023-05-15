@@ -123,8 +123,7 @@ float attract_angle = 0;
 // Distance between attraction points - Indentation Amount
 // You want to edit this line if you want to increase/decrease amount of steps then correct PIDController above.
 float attractor_distance = 3.75*_PI/180.0;
-int num_positions = 64; // Total number of indents
-int current_position;
+
 
 
 
@@ -134,12 +133,6 @@ float findAttractor(float current_angle){
 
 void loop() {
  
-  if(num_positions<2) {
-  current_position = num_positions/2; // Set current position in the middle
-  }
-  else{
-  current_position = 1;
-  } 
 
   // Main FOC algorithm function
   motor.loopFOC();
