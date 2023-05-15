@@ -12,6 +12,7 @@
 
 #define MOTOR_PP 7 // Pole Pairs
 
+// This code is optimized to works well with MAD2804 motor.
 
 // Call a MagneticSensoSPI driver in SimpleFOC libdep.
 // You will need to manually add definiton of the sensor to MagneticSensorSPI.h and MagneticSensorSPI.cpp
@@ -19,7 +20,7 @@
 // Correct version of the file for SimpleFOC 2.3 can be found in GitHub repository
 MagneticSensorSPI sensor = MagneticSensorSPI(MAQ430_SPI, MAQ_SS); 
 
-// Define number of Stator Pole Pairs - Usually this number resides between 7-11 for most gimba motors
+// Define number of Stator Pole Pairs - Usually this number resides between 7-11 for most gimbal motors
 // If you're unsure how many pole pairs your motor has, SimpleFOC calibration would help you estimating PP Count
 // Alternatively SimpleFOC has example code "Pole Pair Estimator"
 BLDCMotor motor = BLDCMotor(MOTOR_PP);
@@ -74,7 +75,7 @@ void setup() {
   // IMPORTANT
   // By introducing Phase Resistance and KV Rating you would need drastically lower your PID values
   // If you decide to introuce Phase R and KV rating start from PID 0,0,0,250,5
-  // High probability that BEMF will damage diode and LDO if not used correctly
+  // High probability that BEMF/Inductance spike will damage VBUS diode and LDO if not used correctly
 
   // Set motor voltage limit (it is safe to keep it between 2.5-5V, depending on motor is recommended 3V)
   motor.voltage_limit = 3;   // [V]
@@ -86,7 +87,7 @@ void setup() {
   motor.useMonitoring(Serial);
 
   // Velocity Low Pass Filtering
-  // Default value is 5ms - You an try different values to see what is best for your motor/
+  // Default value is 5ms - You an try different values to see what is best for your motor
   // The lower value the less filtering
   motor.LPF_velocity.Tf = 0.01;// to set it to 10ms
 
@@ -107,11 +108,12 @@ void setup() {
 
 // Very Basic Haptic PID Controller
 // haptic attraction controller - only Proportional + Derivative (Ignore Intergal == 0)
-// P = Proportional, responsible for reactiveness and clickiness Values between 0.1 - 8 are acceptable for most of motors.
-// D = Derivative, responsible for introducing resistance - similar to viscose friction. Use this to counteract cogging torque or in combination with Proportional. (Keep values low between 0.010 = 0.048)
-// Output_Ramp = Adjust momentary voltage. the higher values are for better haptic response on bigger attractor distances, lower values smootihing the operation.
-// Limit = Velocity limit - Keep between 4-20
-PIDController P_haptic{.P=1,.I=0,.D=0.148,.output_ramp=2500,.limit=7};
+// P = Proportional, responsible for reactiveness, Values between 0.1 - 1.5 are acceptable for most of motors.
+// D = Derivative, responsible for introducing resistance - similar to viscose friction. Use this to counteract cogging torque or in combination with Proportional. (Keep values low between 0.01 = 0.14)
+// Output_Ramp = Output Derivative limit [V/s] - depending on motor keep it between 100-2500. Non NdFeB drives can use higher values.
+// Limit = Output supply limit [V] - Keep at 3 or less unless you understand what you're doing.
+// [IMPORTANT] If you're not using MAD2804 motor start tuning from PID{0,0,0,100,1}
+PIDController PD_haptic{.P=.50,.I=0,.D=0.04,.output_ramp=2550,.limit=3};
 
 
 
@@ -120,7 +122,11 @@ float attract_angle = 0;
 
 // Distance between attraction points - Indentation Amount
 // You want to edit this line if you want to increase/decrease amount of steps then correct PIDController above.
-float attractor_distance = 1*_PI/180.0; // eg. 5 == Dips every 5 degrees
+float attractor_distance = 3.75*_PI/180.0;
+int num_positions = 64; // Total number of indents
+int current_position;
+
+
 
 float findAttractor(float current_angle){
   return round(current_angle/attractor_distance)*attractor_distance;
@@ -128,11 +134,18 @@ float findAttractor(float current_angle){
 
 void loop() {
  
+  if(num_positions<2) {
+  current_position = num_positions/2; // Set current position in the middle
+  }
+  else{
+  current_position = 1;
+  } 
+
   // Main FOC algorithm function
   motor.loopFOC();
 
   // Motion haptic control function
-  motor.move(P_haptic(attract_angle - motor.shaft_angle));
+  motor.move(PD_haptic(attract_angle - motor.shaft_angle));
 
   // Calculate the attractor
   attract_angle = findAttractor(motor.shaft_angle);
