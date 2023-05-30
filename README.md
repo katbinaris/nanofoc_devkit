@@ -8,8 +8,9 @@ As makers, we frequently want to jump right into the action and begin writing th
 
 The NanoFOC is little enough to attach on the back of most small BLDC gimbal motors (Even easier with Universal BLDC Motor Adapter Kit), making it an excellent choice for compact projects requiring maximum efficiency and precision.
 
+Purchase Link: https://store.binaris.io/products/nanofoc-devkit
 
-#### Features:
+### Features:
 - Espressif ESP32 S3 Microcontroller 4MB Flash, 2MB PSRAM 
 - Trinamic TMC6300 low power 6PWM BLDC Driver
 - MPS MagAlpha MA710 or MAQ430 rotary magnetic position sensor
@@ -20,7 +21,7 @@ The NanoFOC is little enough to attach on the back of most small BLDC gimbal mot
 - USB OTG
 - AUX Power via VIN pads 
 
-#### Pinout Cheat Sheet:
+### Pinout Cheat Sheet:
 |  Pin | Function  | On GPIO Matrix? |
 | ------------ | ------------ | ----------- |
 | GPIO 01 | I2C SCL | YES |
@@ -53,11 +54,11 @@ The NanoFOC is little enough to attach on the back of most small BLDC gimbal mot
 | GPIO 47 | I/O | YES |
 | GPIO 48 | I/O | YES |
 
-#### Board Layout:
+### Board Layout:
 
 ![](/Images/PCB_LAYOUT.jpg)
 
-#### Bill Of Materials
+### Bill Of Materials
 
 | Component | References | Footprint | Quantity | Link | Price |
 | -------------- | -------------- | -------------- | -------------- | -------------- | -------------- | 
@@ -86,7 +87,7 @@ The NanoFOC is little enough to attach on the back of most small BLDC gimbal mot
 | | | | **38** | | **22,44 € / 23.50 $** |
 
  
-#### Power Options:
+### Power Options:
 Device is designed to run of 5V @ 1.5A Max.
 There are two ways you can power the board 
 
@@ -95,7 +96,7 @@ It is possible to power device off 500mA capable USB port - however this is not 
 
 2. External VIN  - This connection bypass L1 and  D4 connecting directly to Driver and LDO VS pin. The recommended input voltage is 5V and maximum allowed is 6V - which is restricted by max VIN of ST1L05C LDO.
 
-#### First Time Setup
+### First Time Setup
 Development Kit comes with no Firmware.
 Since ESP32-S3 comes with USB-OTG/USB-Serial integrated into MCU the assumption is that this would be a preferred method of code upload.
 If you are connecting your device to computer for the first time it is critical to put device into DFU mode.
@@ -111,7 +112,7 @@ If you are connecting your device to computer for the first time it is critical 
 Alternatively you may use UART pins which are available on GPIO Matrix to upload your code the legacy way.
 In order to do that you need external TTL Converter.
 
-#### Projects using NanoFOC:
+### Projects using NanoFOC:
 
 SmartKnob by Scott Bezek -> https://github.com/scottbez1/smartknob#nanofoc-3rd-party
 
