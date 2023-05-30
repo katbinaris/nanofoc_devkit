@@ -82,3 +82,7 @@ If you are connecting your device to computer for the first time it is critical 
 Alternatively you may use UART pins which are available on GPIO Matrix to upload your code the legacy way.
 In order to do that you need external TTL Converter.
 
+#### Projects using NanoFOC:
+
+SmartKnob by Scott Bezek -> https://github.com/scottbez1/smartknob#nanofoc-3rd-party
+
