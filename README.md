@@ -57,6 +57,34 @@ The NanoFOC is little enough to attach on the back of most small BLDC gimbal mot
 
 ![](/Images/PCB_LAYOUT.jpg)
 
+#### Bill Of Materials
+| Component | References | Footprint | Quantity | Link | Price |
+| -------------- | -------------- | -------------- | -------------- | -------------- | 
+| 100nF | C1, C2, C4, C8, C12 | 0603 | 5 | https://eu.mouser.com/ProductDetail/KEMET/C0603C104K8RAC | 0,55 € |
+| 4.7uF | C5, C6 | 0805 | 2 | https://eu.mouser.com/ProductDetail/TDK/C2012X7R1A475K125AC | 0,46 € |
+| 10uF | C7, C13 | 0603 | 2 | https://eu.mouser.com/ProductDetail/Samsung-Electro-Mechanics/CL10A106KP8NNWC | 0,24 € |
+| 22uf | C9 | 0805 | 1 | https://eu.mouser.com/ProductDetail/Murata-Electronics/GRM21BC81C226ME44L | 0,39 € |
+| 22uf | C11 | 0603 | 1 | https://eu.mouser.com/ProductDetail/Murata-Electronics/GRM188R61A226ME15J | 0,17 € |
+| 100K | R1-R6 | 0603 | 6 | https://eu.mouser.com/ProductDetail/Bourns/CMP0603-FX-1003ELF | 1,20 € |
+| 300R | R7, R8 | 0603 | 2 | https://eu.mouser.com/ProductDetail/Panasonic/ERJ-UP3F3000V | 0,48 € |
+| 150m | R9, R10 | 0603 | 2 | https://eu.mouser.com/ProductDetail/Susumu/KRL0816D-C-R150-F-T5 | 1,20 € |
+| 340R | R14 | 0603 | 1 | https://eu.mouser.com/ProductDetail/Panasonic/ERJ-3EKF3400V | 0,09 €|
+| 5.1K | R13 | 0603 | 2 | https://eu.mouser.com/ProductDetail/Panasonic/ERJ-P03F5101V | 0,70 € |
+| 10K | R15 | 0603 | 1 | https://eu.mouser.com/ProductDetail/ROHM-Semiconductor/SFR03EZPF1002 | 0,13 € |
+| 100Mhz 400Ohm 1.5A | L1 | 0805 |  1 | https://eu.mouser.com/ProductDetail/Laird-Performance-Materials/MI0805K400R-10 | 0,19 €  |
+| NUF2042XV6T1G | D3 | SOT-563 | 1 | https://www.mouser.com/ProductDetail/onsemi/NUF2042XV6T1G | 0,44 € |
+| CUS15S30 | D4 | SOD-323 | 1 | https://www.mouser.com/ProductDetail/Toshiba/CUS15S30H3F | 0,33 € |
+| Yellow/Green Mono LED | D5, DRV | 0603 | 2 | https://eu.mouser.com/ProductDetail/ROHM-Semiconductor/SML-D12M8WT86 | 0,68 € |
+| ESP32-S3 N4R2 1U | U1 | ESP32-S3-WROOM-1U | 1 | https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-S3-WROOM-1U-N8R2 | 3,38 € |
+| TMC6300 LA | U2 | QFN20 | 1 | https://eu.mouser.com/ProductDetail/ADI-Trinamic/TMC6300-LA-T | 2,13 € |
+| MPS MA710| U3 | QFN16 | 1 | https://www.mouser.com/ProductDetail/Monolithic-Power-Systems-MPS/MA710GQ-Z | 6,15 € |
+| Alps SKTDLDE010 | SW1, SW2 | SKTDLDE010 | 2 | https://eu.mouser.com/ProductDetail/Alps-Alpine/SKTDLDE010 | 1,46 € |
+| Amber Mono LED | ERR | 0603 | 1 | https://eu.mouser.com/ProductDetail/Wurth-Elektronik/150060AS75000 | 0,14 € |
+| ST1L05CPU33R LDO | IC1 | DFN6 | 1 | https://www.mouser.com/ProductDetail/STMicroelectronics/ST1L05CPU33R | 1,18 € |
+| G-Switch_GT-USB-7010ASV | P1 | 7010ASV | 1 | https://www.mouser.com/ProductDetail/GCT/USB4105-GF-A | 0,75 € | 
+| | | | **38** | | **22,44 € / 23.50 $**
+
+ 
 #### Power Options:
 Device is designed to run of 5V @ 1.5A Max.
 There are two ways you can power the board 
