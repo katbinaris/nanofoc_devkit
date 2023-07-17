@@ -33,7 +33,7 @@ float haptic_dampening_factor = 5500; // min 50 max 7500
 float snap_point = 0.545;
 float sub_position_unit;
 
- // Because we don't yet understand EWMA and Dead Zone compensation mechanisms yet, using code borrowed from Scott Bezeks' SmartKnob project.
+ 
   float idle_check_velocity_ewma = 0;
   uint32_t last_idle_start = 0;
   uint32_t last_publish = 0;
